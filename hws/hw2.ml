@@ -1,10 +1,21 @@
 (* Q1 *)
 let rec factorial (x:int): int =
-   x * (fact x-1)
+   x * (factorial x-1)
 ;;
 
 
 (* Q2 *)
+
+let rec selectionSort = function
+[]->[]
+| head::tail -> 
+   let rec select_r small output = function 
+   [] -> small::selectionSort output
+   | x::xs when x<small -> select_r x(small::output) xs
+   | x::xs -> select_r small (x::output) xs
+    in 
+   select_r first [] tail
+;;
 
 
 (* Q3 *)
