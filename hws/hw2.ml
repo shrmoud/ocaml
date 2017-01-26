@@ -7,32 +7,46 @@ match x with
 
 
 (* Q2 *)
-(*
-let rec selectionSort = function
-[]->[]
-| head::tail -> 
-   let rec select_r small output = function 
-   [] -> small::selectionSort output
-   | x::xs when x < small -> select_r x(small::output) xs
-   | x::xs -> select_r small (x::output) xs
-    in 
-   select_r first [] tail
+
+ (* Gets the minimum element of the list *)
+ let rec min lst =
+    match lst with
+      x::[] -> x
+      | (x::tl) -> let mintl = min tl in
+      if x < mintl then x else mintl
 ;;
 
-*)
+
+ (* Removes a given element from the list *)
+let rec remove(x,lst) =
+     match lst with
+       [] -> []
+     | (y::tl) -> if x=y then tl else y::(remove(x,tl))
+;;
+
+
+ (* Sorts a list by repeatedly extracting the minimum *)
+let rec selectionSort(lst) =
+     match lst with
+       [] -> []
+     | _  -> let m = min lst in m::(selectionSort(remove(m,lst)))
+;;
+
 
 (* Q3 *)
    (* let forever (x ??) : ?? = forever forever;; 
   
+     This is a trick question. It has no type. The function never returns. So, we cannot find out the input parameters. It is a forever loop.
  
    *)
+
 
 (* Q4 *)
 let rec add3toList (xs: int list): int list =
    match xs with
    | [] -> []
    | head::tail -> (head+3):: (add3toList tail)
-   ;;
+;;
 
 
 
@@ -42,7 +56,7 @@ let rec fibo (x:int): int =
    | 0 -> 1
    | 1 -> 1
    | _ -> fibo(x-2) + fibo(x-1)
-   ;;
+;;
 
 
 (* Q6 *)
@@ -50,7 +64,7 @@ let rec countOddList (xs: int list): int =
    match xs with
    | [] -> 0
    | head::tail -> if head mod 2 = 0 then 0 + countOddList(tail) else 1 + countOddList(tail)
-   ;;
+;;
 
 
 (* Q7 *)
@@ -60,7 +74,7 @@ let rec sum (xs: int list): int =
    match xs with
    | [] -> 0
    | head::tail -> head + (sum tail)
-   ;;
+;;
 
 let sumOfList (xs: int list): int option =
 match xs with
@@ -76,4 +90,4 @@ let rec makeList (xs: (int * string) list): (string * int) list =
    match xs with
    | [] -> []
    | (x,y) :: tail -> (y,x):: (makeList tail) 
-   ;;
+;;
